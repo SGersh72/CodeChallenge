@@ -56,10 +56,10 @@ public class CompensationServiceImplTest {
 //        testEmployee.setDepartment("Engineering");
 //        testEmployee.setPosition("Developer");
 
-        compensationTest.setEmployeeId("testEmployee");
+        compensationTest.setEmployeeId("03aa9999-ffa9-4978-901b-7c001562cf6f");
 
         compensationTest.setSalary(70000.00d);
-        compensationTest.setEffectiveDate(new Date(2022/07/01));
+        compensationTest.setEffectiveDate(new Date(20220701));
 
         Compensation createdCompensation = restTemplate.postForEntity(compensationUrl, compensationTest, Compensation.class).getBody();
         assertEquals(compensationTest, createdCompensation);
