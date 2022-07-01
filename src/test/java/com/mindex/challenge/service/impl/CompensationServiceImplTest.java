@@ -25,15 +25,11 @@ import static org.junit.Assert.assertNotNull;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CompensationServiceImplTest {
-
     private String compensationUrl;
     private String compensationIdUrl;
 
     @Autowired
-    CompensationService compensationService;
-
-
-
+    private CompensationService compensationService;
 
     @LocalServerPort
     private int port;
@@ -42,24 +38,16 @@ public class CompensationServiceImplTest {
     private TestRestTemplate restTemplate;
 
     @Before
-    public void setUp() {
+    public void setup() {
         compensationUrl = "http://localhost:" + port + "/compensation";
         compensationIdUrl = "http://localhost:" + port + "/compensation/{id}";
     }
 
-
     @Test
     public void testCreateRead() {
         Compensation testCompensation = new Compensation();
-
-//        Employee testEmployee = new Employee();
-//        testEmployee.setFirstName("John");
-//        testEmployee.setLastName("Doe");
-//        testEmployee.setDepartment("Engineering");
-//        testEmployee.setPosition("Developer");
-
         testCompensation.setEmployeeId("03aa1462-ffa9-4978-901b-7c001562cf6f");
-        testCompensation.setSalary(70000.00d);
+        testCompensation.setSalary(70000.00);
         testCompensation.setEffectiveDate(new Date(20220701));
 
         Compensation createdCompensation = restTemplate.postForEntity(compensationUrl, testCompensation, Compensation.class).getBody();
@@ -72,7 +60,5 @@ public class CompensationServiceImplTest {
     private static void assertCompensationEquivalence(Compensation expected, Compensation actual) {
         assertEquals(expected.getEmployeeId(), actual.getEmployeeId());
         assertEquals(expected.getSalary(), actual.getSalary(), 0d);
-        assertEquals(expected.getEffectiveDate(), actual.getEffectiveDate());
     }
-
 }
