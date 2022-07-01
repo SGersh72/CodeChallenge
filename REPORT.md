@@ -1,4 +1,4 @@
-Dear Examiner,
+Dear Reviwer,
 
 Thank you so much for this challenge and for reviewing my code.
 
