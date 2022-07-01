@@ -9,7 +9,7 @@ public class Compensation {
     private String employeeId;
     private double salary;
 
-    @JsonFormat(pattern = "yyyy/MM/dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date effectiveDate;
 
     public Compensation() {

@@ -28,7 +28,7 @@ public class ReportingStructureServiceImpl implements ReportingStructureService 
             throw new RuntimeException("Invalid employeeId: " + id);
         }
 
-        ReportingStructure reportingStructure = new ReportingStructure(employee);
+        ReportingStructure reportingStructure = new ReportingStructure(employee.getEmployeeId());
 
         int numberOfReports = 0;
         List<Employee> directReports = employee.getDirectReports();
