@@ -26,7 +26,7 @@ public class ReportingStructure {
         this.numberOfReports = numberOfReports;
     }
 
-    public static String getEmployeeId() {
+    public String getEmployeeId() {
         return this.employeeId;
     }
 
