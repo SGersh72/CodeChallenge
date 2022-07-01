@@ -13,7 +13,8 @@ public class ReportingStructure {
     private String employeeId;
 
 
-    public ReportingStructure() {
+    public ReportingStructure(String employeeId) {
+        this.employeeId = employeeId;
     }
 
 
@@ -25,7 +26,7 @@ public class ReportingStructure {
         this.numberOfReports = numberOfReports;
     }
 
-    public String getEmployeeId() {
+    public static String getEmployeeId() {
         return this.employeeId;
     }
 

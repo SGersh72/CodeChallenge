@@ -4,7 +4,7 @@ import com.mindex.challenge.data.ReportingStructure;
 
 public interface ReportingStructureService {
 
-    ReportingStructure save(String id);
+    public ReportingStructure save(String id);
 
 
 

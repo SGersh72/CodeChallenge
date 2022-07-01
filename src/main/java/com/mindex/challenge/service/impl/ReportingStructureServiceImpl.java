@@ -23,7 +23,7 @@ public class ReportingStructureServiceImpl implements ReportingStructureService 
     private EmployeeRepository employeeRepository;
 
     private Map<String, ReportingStructure> reportingStructureMap = new HashMap<>();
-    ReportingStructure reportingStructure = new ReportingStructure();
+    ReportingStructure reportingStructure;
     public ReportingStructure save(String id) {
         LOG.debug("Creating reporting structure with employee id [{}]", id);
 
@@ -57,9 +57,7 @@ public class ReportingStructureServiceImpl implements ReportingStructureService 
         if (employee == null) {
             throw new RuntimeException("Invalid employeeId: " + id);
         }
-
-        reportingStructure = save(id);
-        return reportingStructure;
+        return save(id);
     }
 
 }
