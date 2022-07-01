@@ -8,7 +8,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Service
 public class ReportingStructureServiceImpl implements ReportingStructureService {
@@ -17,6 +21,32 @@ public class ReportingStructureServiceImpl implements ReportingStructureService 
 
     @Autowired
     private EmployeeRepository employeeRepository;
+
+    private Map<String, ReportingStructure> reportingStructureMap = new HashMap<>();
+    ReportingStructure reportingStructure = new ReportingStructure();
+    public ReportingStructure save(String id) {
+        LOG.debug("Creating reporting structure with employee id [{}]", id);
+
+        Employee employee = employeeRepository.findByEmployeeId(id);
+
+        if (employee == null) {
+            throw new RuntimeException("Invalid employeeId: " + id);
+        }
+
+        reportingStructure.setEmployeeId(employeeRepository.findByEmployeeId(id));
+
+        Set<Employee> distinctDR = (Set<Employee>) employee.getDirectReports();
+
+        for (Employee report : employee.getDirectReports()) {
+            if (report.getDirectReports() != null) {
+                distinctDR.addAll(report.getDirectReports());
+            }
+        }
+        reportingStructure.setNumberOfReports(distinctDR.size());
+
+        reportingStructureMap.put(reportingStructure.getEmployeeId(), reportingStructure);
+        return reportingStructureMap.get(reportingStructure.getEmployeeId());
+    }
 
     @Override
     public ReportingStructure read(String id) {
@@ -28,22 +58,8 @@ public class ReportingStructureServiceImpl implements ReportingStructureService 
             throw new RuntimeException("Invalid employeeId: " + id);
         }
 
-        ReportingStructure reportingStructure = new ReportingStructure(employee.getEmployeeId());
-
-        int numberOfReports = 0;
-        List<Employee> directReports = employee.getDirectReports();
-        numberOfReports = directReports.size();
-        for (Employee emp : directReports) {
-            List<Employee> dp = emp.getDirectReports();
-            if (dp != null) {
-                numberOfReports += emp.getDirectReports().size();
-            }
-        }
-        reportingStructure.setNumberOfReports(numberOfReports);
-
+        reportingStructure = save(id);
         return reportingStructure;
     }
-
-
 
 }
